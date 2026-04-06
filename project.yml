@@ -1,0 +1,33 @@
+name: YOLOWorldApp
+options:
+  bundleIdPrefix: com.tnf
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+
+packages:
+  LLM:
+    url: https://github.com/eastriverlee/LLM.swift
+    from: "1.0.0"
+
+targets:
+  YOLOWorldApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: YOLOWorldApp/Sources
+      - path: YOLOWorldDetector.mlpackage
+      - path: YOLOWorldText.mlpackage
+      - path: clip_tokenizer.json
+        buildPhase: resources
+    dependencies:
+      - package: LLM
+    info:
+      path: YOLOWorldApp/Info.plist
+      properties:
+        NSCameraUsageDescription: "Camera access is needed for real-time object detection."
+        UILaunchScreen: {}
+    settings:
+      SWIFT_VERSION: "5.9"
+      TARGETED_DEVICE_FAMILY: "1,2"
+      INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES

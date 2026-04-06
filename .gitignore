@@ -1,0 +1,35 @@
+# Xcode
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Claude Code
+.claude/
+
+# PyTorch weights (re-download with: python3 train.py)
+*.pt
+
+# Unused/legacy exports
+YOLOWorld.mlpackage/
+YOLOWorldDynamic.mlpackage/
+vocab_embeddings.json
+
+# LLM.swift source copy (pulled via SPM)
+LLM.swift
+
+# Internal integration notes (covered by README)
+YOLO_WORLD_INTEGRATION.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# On-device LLM model (downloaded at runtime)
+*.gguf
